@@ -1,6 +1,8 @@
 Bouncer bouncer;
 Bouncer bouncer_two;
 
+/*** Set up ***/
+
 void setup() {
      size (200, 200);
      frameRate (300);
@@ -10,13 +12,25 @@ void setup() {
      bouncer_two = new Box (width / 2, 20, 20, 20);
 }
 
-void draw() {
+void draw() { // Runs every __ seconds?
      bouncer.computeNextStep (width, height, frameRate);
      bouncer_two.computeNextStep (width, height, frameRate);
      background (#FFFFEE);
      bouncer.draw();
      bouncer_two.draw();
 }
+
+/*** Event handlers ***/
+
+void mousePressed() {
+     // TODO
+}
+
+void mouseReleased() {
+     // TODO
+}
+
+/*** Classes *********/
 
 interface Bouncer {
      void computeNextStep (int width, int height, float framerate);
