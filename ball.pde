@@ -1,23 +1,43 @@
-float framerate = 24;
-
-int ball_x;
-int ball_y;
-int ball_radius = 20;
+Bouncer bouncer;
 
 void setup() {
      size (200, 200);
-     frameRate (framerate);
-     ball_x = width / 2; // where does the width come from?
-     ball_y = ball_radius;
+     frameRate (24);
      stroke (#003300);
      fill (#0000FF);
+     bouncer = new Ball (width/2, 20, 20);
 }
 
 void draw() {
-     float bounce_height = height / 2 * abs (sin (PI * frameCount / framerate)); // To learn
-     float ball_height = height - (bounce_height + ball_radius);
-
+     bouncer.computeNextStep (width, height, frameRate);
      background (#FFFFEE);
-     ball_y = (int) (ball_height);
-     ellipse (ball_x, ball_y, ball_radius, ball_radius);
+     bouncer.draw();
+}
+
+interface Bouncer {
+     void computeNextStep (int width, int height, float framerate);
+     void draw();
+}
+
+class Ball implements Bouncer {
+      int x, y, radius;
+      int step = 0;
+
+      Ball (int x, int y, int r) {
+      	   this.x = x;
+	   this.y = y;
+	   this.radius = r;
+      }
+
+      void computeNextStep (int sketch_width, int sketch_height, float frame_rate) {
+      	   step++;
+	   float sin_value = abs (sin (PI * step / (float) frame_rate));
+	   float bounce_height = sketch_height / 2 * sin_value;
+	   float ball_height = sketch_height - (bounce_height + radius);
+	   y = (int) (ball_height);
+      }
+
+      void draw() {
+      	   ellipse (x, y, radius, radius);
+      }
 }
