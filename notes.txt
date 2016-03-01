@@ -1,0 +1,27 @@
+Processing supports object oriented programming!
+
+Processing is strongly typed
+- boolean
+- byte
+- char
+- color
+- int (signed)
+- long (signed)
+- float (signed)
+- double (signed)
+
+- Object
+- String (UTF-16)
+- ArrayList 
+- HashMap ({,})
+- XMLElement
+
+Native Processing calls
+- size(int, int) // drawing area dimensions
+- frameRate(int) // refresh rate
+- stroke (color) // shape outline color
+- fill (color) // shape fill color
+- abs (number) // absolute val
+- sin (number) // sinoid val (rad)
+- background (color) // sets all pixels of drawing area
+- ellipse (int, int, int, int) 

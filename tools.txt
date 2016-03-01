@@ -1,3 +1,6 @@
 https://www.sketchapp.com
 
 http://processingjs.org/articles/jsQuickStart.html
+
+
+http://www.processing.org/tutorials <-- Use this resource after working through Pomax' guide!
