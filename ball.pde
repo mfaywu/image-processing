@@ -2,7 +2,7 @@ Bouncer bouncer;
 
 void setup() {
      size (200, 200);
-     frameRate (24);
+     frameRate (300);
      stroke (#003300);
      fill (#0000FF);
      bouncer = new Ball (width/2, 20, 20);
@@ -22,6 +22,7 @@ interface Bouncer {
 class Ball implements Bouncer {
       int x, y, radius;
       int step = 0;
+      int incr = 1;
 
       Ball (int x, int y, int r) {
       	   this.x = x;
@@ -30,10 +31,15 @@ class Ball implements Bouncer {
       }
 
       void computeNextStep (int sketch_width, int sketch_height, float frame_rate) {
-      	   step++;
-	   float sin_value = abs (sin (PI * step / (float) frame_rate));
-	   float bounce_height = sketch_height / 2 * sin_value;
-	   float ball_height = sketch_height - (bounce_height + radius);
+      	   if (step == 0) incr = 1;
+	   if (step == sketch_height / 2 - 1) incr = -1;
+	   step += incr;
+	   //float sin_value = abs (sin (PI * step / (float) frame_rate));
+	   //float bounce_height = sketch_height / 2 * sin_value;
+	   //float ball_height = sketch_height - (bounce_height + radius);
+	   //y = (int) (ball_height);
+	   float ball_height = sketch_height - (step % (sketch_height / 2) + radius); 
+	   
 	   y = (int) (ball_height);
       }
 
