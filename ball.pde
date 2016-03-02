@@ -29,7 +29,7 @@ void mousePressed() {
      int items = bouncer.length;
      for (int i = 0; i < items; i++) {
      	 if (bouncer[i].mouseOver (mouseX, mouseY)) {
-	    bouncer[b].mousePressed();
+	    bouncer[i].mousePressed();
 	 }
      }
 }
@@ -50,16 +50,11 @@ abstract class Bouncer {
      int xoffset = 0;
      int yoffset = 0;
 
-     void computeNextStep (int width, int height, float framerate) {
-     	  if (move) {
-	     computeNextStep_bouncer (width, height, framerate);
-	  }
-     }
-
-
-     abstract void computeNextStep_bouncer (int width, int height, float framerate);
-
+     abstract void computeNextStep (int width, int height, float framerate);
+     
      abstract void draw();
+
+     abstract boolean mouseOver (int mx, int my);
 
      abstract boolean mouseOver (int mx, int my);
 
@@ -68,14 +63,7 @@ abstract class Bouncer {
      }
 
      void mouseReleased() {
-          move = true;
-     }
-
-     void mouseDragged (int mx, int my) {
-          if (!move) {
-   	      xoffset = mx - x;
-              yoffset = my - y;
-	  }
+     	  move = true;
      }
 }
 
@@ -90,7 +78,8 @@ class Ball implements Bouncer {
 	   this.radius = r;
       }
 
-      void computeNextStep_bouncer (int sketch_width, int sketch_height, float frame_rate) {
+      void computeNextStep (int sketch_width, int sketch_height, float frame_rate) {
+      if (move) {
       	   if (step == 0) incr = 1;
 	   if (step == sketch_height / 2 - 1) incr = -1;
 	   step += incr;
@@ -101,10 +90,11 @@ class Ball implements Bouncer {
 	   float ball_height = sketch_height / 2 - (2*radius) + (step % (sketch_height / 2) + radius); 
 	   
 	   y = (int) (ball_height);
+	   }
       }
 
       void draw() {
-      	   ellipse (x + xoffset, y + yoffset, radius, radius);
+      	   ellipse (x, y, radius, radius);
       }
       
       boolean mouseOver (int mx, int my) {
@@ -124,7 +114,8 @@ class Box implements Bouncer {
 	  this.h = h;
      }
 
-     void computeNextStep_bouncer (int sketch_width, int sketch_height, float frame_rate) {
+     void computeNextStep (int sketch_width, int sketch_height, float frame_rate) {
+     if (move) {
      	  if (step == 0) incr = 1;
 	  if (step == sketch_height / 2 - 1) incr = -1;
 	  step += incr;
@@ -132,10 +123,11 @@ class Box implements Bouncer {
 	  float box_height = sketch_height - (step % (sketch_height / 2) + (h));
 	  
 	  y = (int) (box_height);
+	  }
      }
 
      void draw() {
-     	  rect (x + xoffset, y + yoffset, w, h);
+     	  rect (x, y, w, h);
      }
      
      boolean mouseOver (int mx, int my) {
