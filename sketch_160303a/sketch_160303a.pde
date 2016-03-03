@@ -1,20 +1,22 @@
 PImage photo;
 PrintWriter output;
+String image_title = "matt";
 
 void setup() {
-  size(290, 174);
-  photo = loadImage("red.png");
+  size(91, 102);
+  photo = loadImage(image_title + ".png");
   photo.loadPixels();
   int width = photo.width;
   int height = photo.height;
   
-  output = createWriter("pixels.txt");
+  output = createWriter("pixels-" + image_title + ".txt");
   
-  for (int i = 0; i < width * height; i++) {
-    output.println(
-    String.format("%3s", Integer.toBinaryString(floor ((photo.pixels[0] >> 16 & 0xFF) / 32))).replace(' ', '0') + "" + 
-    String.format("%3s", Integer.toBinaryString(floor ((photo.pixels[0] >> 8 & 0xFF) / 32))).replace(' ', '0') + "" + 
-    String.format("%3s", Integer.toBinaryString(floor ((photo.pixels[0] >> 4 & 0xFF) / 64))).replace(' ', '0'));
+  for (int i = width * height / 4; i < width * height; i++) {
+    output.print(
+    String.format("%3s", Integer.toBinaryString(floor ((photo.pixels[i] >> 16 & 0xFF) / 32))).replace(' ', '0') + "" + 
+    String.format("%3s", Integer.toBinaryString(floor ((photo.pixels[i] >> 8 & 0xFF) / 32))).replace(' ', '0') + "" + 
+    String.format("%3s", Integer.toBinaryString(floor ((photo.pixels[i] >> 4 & 0xFF) / 64))).replace(' ', '0'));
+    if (i % width == 0) output.println();
   }
 }
 
