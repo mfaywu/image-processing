@@ -1,2 +1,9 @@
 #Edit files
 *~
+
+#Image files
+*.png
+*.jpg
+
+#Pixel files
+#.txt
