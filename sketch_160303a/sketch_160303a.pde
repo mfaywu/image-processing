@@ -69,7 +69,5 @@ void setup() {
 
 void draw() {
   if (display_image) {
-    //TODO: Render image from text file
-    //image (photo, 0, 0);
   }
 }
