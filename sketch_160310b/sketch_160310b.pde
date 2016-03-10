@@ -26,6 +26,6 @@ void draw() {
 }
 
 void mousePressed() {
-  background (192, 64, 0);
   saveFrame("output-####.png");
+  background (192, 64, 0);
 }
