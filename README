@@ -1,1 +1,50 @@
-This is where I learn how to use processing.js or whatever else comes along
+I am learning to use Processing. 
+
+* sketch_160310b
+
+To learn: 
+[x] Interactivity
+  [x] onShape() to detect mouse-over a rect / ellipse
+  [x] Mouse, Mouse press, Keys, Key code interaction
+[ ] Typography
+[ ] Strings & drawing text
+[ ] Arrays
+[ ] Images & Pixels
+[ ] Curves
+[ ] 2D Transformations
+[ ] PShape
+[ ] Data
+[ ] Trigonometry 
+  [ ] Make ball bounce with gravity
+[ ] Render Techniques
+[ ] 2D arrays
+[ ] Sound
+[ ] Electronics
+[ ] Network
+[ ] Print
+[ ] Shaders
+[ ] PVector
+[ ] P3D
+
+Projects: 
+* Create Paint program
+- Not started
+[ ] Pencil tool
+[ ] Stamp tool
+[ ] Save functionality
+
+* Maze game
+- Not started
+[ ] Read buttons to move
+
+* Data Visualization
+- Election poll data
+
+* Image manipulation
+[ ] Import image
+[ ] Generate 8-bit colour text file
+[ ] Pixelizer
+[ ] Save functionality
+
+* Storyline
+[ ] Make a cartoon!
