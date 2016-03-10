@@ -1,73 +1,77 @@
-//void setup() {
-//  size (400, 400);
-//  stroke (255);
-//  background (192, 64, 0);
-//}
-
-//void draw() {
-//  //frameRate(12);
-  
-//  //println(mouseX + " : " + mouseY);
-  
-//  background (192, 64, 0);
-//  ellipse (mouseX, mouseY, 16, 32);
-  
-//  stroke (100);
-//  //background (192, 64, 0);
-//  line (150, 25, mouseX, mouseY);
-//  stroke (200);
-//  point(30, 30);
-//  stroke (100);
-//  fill (150);
-//  rectMode (CENTER);
-//  rect (100, 100, 20, 100);
-//  fill (255, 200, 200, 127);
-//  ellipse (100, 70, 60, 60);
-//  ellipse (81, 70, 16, 32);
-//  fill (0);
-//  noStroke();
-//  stroke (100);
-//  line (90, 150, 80, 160);
-//  line (110, 150, 120, 160);
-//}
-
-//void mousePressed() {
-//  saveFrame("output-####.png");
-//  background (192, 64, 0);
-//}
+int choice;
+int screen_width = 1000;
+int screen_height = 1000;
 
 void setup() {
-  size (100, 100);
-  noStroke();
-  fill(0);
+  size (1000, 1000);
+  choice = 0;
 }
 
 void draw() {
-  background (204);
-  if (mouseButton == LEFT) {
-    fill (255);
+  background (255);
+  switch (choice) {
+    case 0: // Highlighting parts of a Shanara's body
+    
+      if (onShape ('r', 430, 330, 100, 200)) 
+        fill (255, 255, 0);
+      else 
+        fill (255, 0, 255);
+      rect (430, 330, 100, 200); // Body
+      
+      if (onShape ('e', 480, 240, 200, 250))
+        fill (0, 255, 0);
+      else
+        fill (102, 255, 178);
+      ellipse (480, 240, 200, 250); // Head
+      
+      fill (128);
+      ellipse (435, 240, 50, 100); // Left eye
+      ellipse (525, 240, 50, 100); // Right eye
+      line (530, 400, 580, 380); // Right arm
+      stroke (0);
+      line (430, 400, 370, 380); // Left arm
+      line (520, 530, 560, 600); // Right leg
+      line (440, 530, 400, 600); // Left leg
+      break;
+    case 1: // implement fill algorithm?
+      break;
+    case 2: // 
+      break;
+    default: 
+      break;
   }
-  else if (mouseButton == RIGHT) {
-    fill (0);
+}
+
+boolean onShape(char shape, int x, int y, int w, int h) {
+  switch (shape) {
+     case 'r':  
+       println("case r");
+       if (mouseX >= x && mouseX <= x+w && mouseY >= y && mouseY <= y+h) 
+         return true;
+       else 
+           return false;
+     case 'e': 
+       //if (sqrt (sq (x - mouseX) + sq (y - mouseY) < 
+       return true;
+     default: 
+       return true;
   }
-  else {
-    fill (125);
+}
+
+void mousePressed() {
+  println (mouseX + " : " + mouseY);
+}
+
+void keyPressed() {
+  switch (key) {
+    case 'a':
+      choice = 0;
+      break;
+    case 'b':
+      choice = 1;
+      break;
+    case 'c':
+      choice = 2;
+      break;
   }
-  if ((mouseX <= 50) && (mouseY <= 50)) {
-    rect (0, 0, 50, 50); //UL
-    stroke (200);
-    textSize(40);
-    text(key, 10, 10);
-    fill (125);
-  }
-  else if ((mouseX <= 50) && (mouseY > 50)) {
-    rect (0, 50, 50, 50); //LL
-  }
-  else if ((mouseX > 50) && (mouseY <= 50)) {
-    rect (50, 0, 50, 50);
-  }
-  else {
-    rect (50, 50, 50, 50);
-  }
-  
 }
