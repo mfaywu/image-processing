@@ -6,7 +6,11 @@ To learn:
 [x] Interactivity
   [x] onShape() to detect mouse-over a rect / ellipse
   [x] Mouse, Mouse press, Keys, Key code interaction
+  [ ] Event flow: loop(), redraw(), noLoop(), cursor
 [ ] Typography
+  [ ] Load new font
+  [x] Typing to keyboard
+  Ref: http://letterror.com
 [ ] Strings & drawing text
 [ ] Arrays
 [ ] Images & Pixels

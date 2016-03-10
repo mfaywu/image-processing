@@ -1,30 +1,49 @@
 int choice;
 int screen_width = 1000;
 int screen_height = 1000;
+color cursor_colour;
+PFont pfont;
 
-/*** A Vars ***/
+/*** Splash vars ***/
+String letters = "";
+ 
+/*** Program 1 Vars ***/
 int side;
 
 void setup() {
   size (1000, 1000);
   choice = -1;
-  ellipseMode (CENTER);
-  
-  /*** A setup ***/
-  side = 50;
+  pfont = createFont ("Monospaced", 32);
 }
 
 void draw() {
   
   background (255);
   switch (choice) {
+    
+    /* Splash screen - Instructions */
     case -1:
-      // TODO Add instructions for features
+      fill (0);
+      textSize(24);
+      textFont(pfont);
+      text("Instructions: ", 100, 100);
+      text(letters, 300, 300);
+      noCursor();
+      textSize(mouseX);
+      text ("Hello World!", mouseX, mouseY);
       break;
-    case 0: // Highlighting parts of a Shanara's body
+      
+    /*** Program 1 - Highlighting parts of a Shanara's body ***/
+    case 0:
       // Body
-      if (onShape ('r', 430, 330, 100, 200)) fill (255, 255, 0);
-      else fill (255, 0, 255);
+      if (onShape ('r', 430, 330, 100, 200)) {
+        fill (255, 255, 0);
+        cursor_colour = color (255, 0, 0);
+      }
+      else {
+        fill (255, 0, 255);
+        cursor_colour = color (255, 204, 0);
+      }
       rect (430, 330, 100, 200);
       
       // Head
@@ -54,6 +73,10 @@ void draw() {
       line (430, 400, 430 + side, 380); // Left arm
       line (520, 530, 560, 600); // Right leg
       line (440, 530, 400, 600); // Left leg
+      
+      //Cursor
+      fill (cursor_colour);
+      ellipse (mouseX, mouseY, 20, 20);
       break;
     case 1: // implement fill algorithm?
       break;
@@ -84,14 +107,32 @@ void mousePressed() {
 
 void keyPressed() {
   switch (key) {
-    case 'a':
+    
+    /*** Program 1 Setup ***/
+    case '1':
       choice = 0;
+      noCursor();
+      ellipseMode (CENTER);
+      side = 50;
+      cursor_colour = color(255, 204, 0);
       break;
-    case 'b':
+    case '2':
       choice = 1;
       break;
-    case 'c':
+    case '3':
       choice = 2;
+      break;
+      
+    /*** Splash Screen Setup ***/
+    default:
+      if (choice == -1) {
+        if (key == BACKSPACE) {
+          if (letters.length() > 0) {
+            letters = letters.substring(0, letters.length() - 1);
+          }
+        }
+        else letters = letters + key;
+      }
       break;
   }
 }
