@@ -10,6 +10,15 @@ String letters = "";
 /*** Program 1 Vars ***/
 int side;
 
+/*** Program 2 Vars ***/
+ArrayList<String> headlines = new ArrayList<String>();
+String new_headline = "";
+int moving_ptr = 0;
+int moving_ptr_max = 0;
+int speed = 1; // TODO: Change to dynamic
+int spacing = 0;
+int headline_size = 24; // TODO: Change to dynamic
+
 void setup() {
   size (1000, 1000);
   choice = -1;
@@ -27,6 +36,8 @@ void draw() {
       textSize(24);
       textFont(pfont);
       text("Instructions: ", 100, 100);
+      text("Press 1 to see Shanara.", 100, 130);
+      text("Press 2 to see scrolling headlines.", 100, 160);
       text(letters, 300, 300);
       noCursor();
       textSize(mouseX);
@@ -78,8 +89,34 @@ void draw() {
       fill (cursor_colour);
       ellipse (mouseX, mouseY, 20, 20);
       break;
-    case 1: // implement fill algorithm?
+      
+    /*** Program 2 - Scrolling headlines ***/
+    case 1: 
+      // Instructions at the top
+      fill (0);
+      textSize(24);
+      text ("Type a new headline and press ENTER.", 50, 50);
+      
+      // Box for new headline
+      stroke (0);
+      fill (255);
+      rect(50, 80, 750, 50);
+      
+      // TODO: Blinking type line
+      // Text typing into box plus Enter for saving and clearing
+      fill (0);
+      text (new_headline, 60, 90, 725, 45);
+      
+      // TODO: Display headlines from ArrayList in scrolling
+      textSize(headline_size);
+      
+      for (int i = 0; i < headlines.size(); i++) { // TODO Currently only works for one headline
+        text (headlines.get(i), 60, 140 + moving_ptr);
+      }
+      moving_ptr = moving_ptr + speed;
+      //if (moving_ptr >= moving_ptr_max) moving_ptr = 0;
       break;
+      
     case 2: // 
       break;
     default: 
@@ -116,15 +153,17 @@ void keyPressed() {
       side = 50;
       cursor_colour = color(255, 204, 0);
       break;
+    /*** Program 2 Setup ***/
     case '2':
       choice = 1;
+      cursor();
       break;
     case '3':
       choice = 2;
       break;
       
-    /*** Splash Screen Setup ***/
     default:
+      /*** Splash Screen Keyboard Reading ***/
       if (choice == -1) {
         if (key == BACKSPACE) {
           if (letters.length() > 0) {
@@ -132,6 +171,26 @@ void keyPressed() {
           }
         }
         else letters = letters + key;
+      }
+      /*** Program 2 Keyboard Reading ***/
+      else if (choice == 1) {
+        if (key == BACKSPACE) {
+          if (new_headline.length() > 0) {
+            new_headline = new_headline.substring (0, new_headline.length() - 1);
+          }
+        }
+        else if (key == ENTER) {
+          headlines.add(new_headline);
+          new_headline = "";
+          // TODO: Update max for moving pointer
+        }
+        else if (key == CODED) {
+          if (keyCode == UP)
+            speed += 2; 
+          if (keyCode == DOWN)
+            speed -= 2;
+        }
+        else new_headline = new_headline + key;
       }
       break;
   }
