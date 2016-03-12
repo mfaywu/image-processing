@@ -93,6 +93,21 @@ void draw() {
       
     /*** Program 2 - Scrolling headlines ***/
     case 1: 
+      // Display headlines
+      textSize(headline_size);
+      for (int i = 0; i < headlines.size(); i++) {
+        int h_y = (100 - headline_size) +  moving_ptr - (i * (spacing + headline_size));
+        if (h_y >= (100 - headline_size) && h_y <= (500 + headline_size)) 
+          text (headlines.get(i), 60, h_y);
+      }
+      moving_ptr = (moving_ptr >= moving_ptr_max) ? 0 : moving_ptr + speed;
+      
+      // White box to hide partial headlines
+      fill (255);
+      noStroke();
+      rect (50, 0, 750, 100);
+      rect (50, 500, 750, headline_size + spacing);
+      
       // Instructions at the top
       fill (0);
       textSize(24);
@@ -107,22 +122,6 @@ void draw() {
       // Text typing into box plus Enter for saving and clearing
       fill (0);
       text (new_headline, 60, 90, 725, 45);
-      
-      // Display headlines
-      textSize(headline_size);
-      
-      for (int i = 0; i < headlines.size(); i++) {
-        int h_y = (140 + headline_size) +  moving_ptr - (i * (spacing + headline_size));
-        if (h_y >= (140 + headline_size) && h_y <= (500 + headline_size)) 
-          text (headlines.get(i), 60, h_y);
-      }
-      moving_ptr = (moving_ptr >= moving_ptr_max) ? 0 : moving_ptr + speed;
-      
-      // White box to hide partial headlines
-      fill (255);
-      noStroke();
-      rect (50, 140, 750, headline_size);
-      rect (50, 500, 750, headline_size);
       
       break;
       
@@ -191,7 +190,7 @@ void keyPressed() {
         else if (key == ENTER) {
           headlines.add(new_headline);
           new_headline = "";
-          moving_ptr_max = (headlines.size() * (headline_size + spacing)) + ((500 - 140) + headline_size);
+          moving_ptr_max = (headlines.size() * (headline_size + spacing)) + (500 + headline_size);
         }
         else if (key == CODED) {
           if (keyCode == UP)
