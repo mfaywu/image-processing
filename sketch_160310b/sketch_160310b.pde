@@ -15,8 +15,8 @@ ArrayList<String> headlines = new ArrayList<String>();
 String new_headline = "";
 int moving_ptr = 0;
 int moving_ptr_max = 0;
-int speed = 1; // TODO: Change to dynamic
-int spacing = 0;
+int speed = 1;
+int spacing = 20; // TODO: Change to dynamic
 int headline_size = 24; // TODO: Change to dynamic
 
 void setup() {
@@ -40,7 +40,8 @@ void draw() {
       text("Press 2 to see scrolling headlines.", 100, 160);
       text(letters, 300, 300);
       noCursor();
-      textSize(mouseX);
+      if (mouseX > 0) textSize(mouseX); 
+      else textSize(1);
       text ("Hello World!", mouseX, mouseY);
       break;
       
@@ -107,14 +108,22 @@ void draw() {
       fill (0);
       text (new_headline, 60, 90, 725, 45);
       
-      // TODO: Display headlines from ArrayList in scrolling
+      // Display headlines
       textSize(headline_size);
       
-      for (int i = 0; i < headlines.size(); i++) { // TODO Currently only works for one headline
-        text (headlines.get(i), 60, 140 + moving_ptr);
+      for (int i = 0; i < headlines.size(); i++) {
+        int h_y = (140 + headline_size) +  moving_ptr - (i * (spacing + headline_size));
+        if (h_y >= (140 + headline_size) && h_y <= (500 + headline_size)) 
+          text (headlines.get(i), 60, h_y);
       }
-      moving_ptr = moving_ptr + speed;
-      //if (moving_ptr >= moving_ptr_max) moving_ptr = 0;
+      moving_ptr = (moving_ptr >= moving_ptr_max) ? 0 : moving_ptr + speed;
+      
+      // White box to hide partial headlines
+      fill (255);
+      noStroke();
+      rect (50, 140, 750, headline_size);
+      rect (50, 500, 750, headline_size);
+      
       break;
       
     case 2: // 
@@ -182,13 +191,17 @@ void keyPressed() {
         else if (key == ENTER) {
           headlines.add(new_headline);
           new_headline = "";
-          // TODO: Update max for moving pointer
+          moving_ptr_max = (headlines.size() * (headline_size + spacing)) + ((500 - 140) + headline_size);
         }
         else if (key == CODED) {
           if (keyCode == UP)
-            speed += 2; 
+            speed -= 2; 
           if (keyCode == DOWN)
-            speed -= 2;
+            speed += 2;
+          if (keyCode == RIGHT) 
+            headline_size += 10;
+          if (keyCode == LEFT) 
+            headline_size -= 10;
         }
         else new_headline = new_headline + key;
       }
